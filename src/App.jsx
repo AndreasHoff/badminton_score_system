@@ -1,14 +1,49 @@
-import { useState } from 'react'
+import { useGameState } from './hooks/useGameState'
+import { SetupScreen } from './components/SetupScreen'
+import { MatchScreen } from './components/MatchScreen'
 import './App.css'
 
-// Phase 2 will replace this with SetupScreen and MatchScreen
 function App() {
-  const [screen, setScreen] = useState('setup') // 'setup' | 'match'
+  const { 
+    gameState, 
+    startGame, 
+    scorePoint, 
+    resetGame, 
+    getCurrentServer,
+    getGameState,
+    checkGameWon,
+    shouldShowBreak,
+    shouldChangeEnds,
+    startNextGame,
+  } = useGameState()
+
+  const handleStartMatch = (teamAPlayers, teamBPlayers, servingTeam) => {
+    startGame(teamAPlayers, teamBPlayers, servingTeam)
+  }
+
+  const handleResetGame = () => {
+    if (window.confirm('Are you sure you want to start a new match?')) {
+      resetGame()
+    }
+  }
 
   return (
     <div className="app">
-      <h1>🏸 Badminton Score System</h1>
-      <p>Phase 1 complete — ready for Phase 2</p>
+      {!gameState.gameStarted ? (
+        <SetupScreen onStartMatch={handleStartMatch} />
+      ) : (
+        <MatchScreen 
+          gameState={gameState}
+          onScorePoint={scorePoint}
+          onResetGame={handleResetGame}
+          getCurrentServer={getCurrentServer}
+          getGameState={getGameState}
+          checkGameWon={checkGameWon}
+          shouldShowBreak={shouldShowBreak}
+          shouldChangeEnds={shouldChangeEnds}
+          startNextGame={startNextGame}
+        />
+      )}
     </div>
   )
 }

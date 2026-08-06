@@ -1,8 +1,9 @@
-You are building a badminton scoring MVP.
+You are building a badminton scoring MVP using the **BWF 3×15 scoring system (2026)**.
 
 Always:
 - Read docs/badminton_proposal.md before making changes
 - Read docs/badminton_doubles_1st_set.md before implementing any game logic
+- Read docs/badminton_3x15_scoring.md for the new scoring rules
 - Follow the phases defined in the document
 - Keep implementations simple
 - Use React with local state only
